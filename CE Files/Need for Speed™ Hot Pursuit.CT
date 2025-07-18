@@ -24,6 +24,13 @@ alloc(newmem,$1000)
 label(code)
 label(return)
 
+label(allowPlayerFullNitro)
+label(allOthersWithNoNitro)
+
+registersymbol(allowPlayerFullNitro)
+registersymbol(allOthersWithNoNitro)
+
+label(playerNitro)
 label(botNitro)
 label(cheatEnd)
 
@@ -32,9 +39,14 @@ newmem: //this is allocated memory, you have read,write,execute access
   pushad
   cmp [edx+ecx+0003C6F4+10], 0
   jne botNitro
+playerNitro:
+  cmp byte ptr [allowPlayerFullNitro], 1
+  jne cheatEnd
   mov [edx+ecx+0003C6F4], (float)100
   jmp cheatEnd
 botNitro:
+  cmp byte ptr [allOthersWithNoNitro], 1
+  jne cheatEnd
   mov [edx+ecx+0003C6F4], 0
 cheatEnd:
   popad
@@ -42,6 +54,10 @@ cheatEnd:
 code:
   movss xmm0,[edx+ecx+0003C6F4]
   jmp return
+allowPlayerFullNitro:
+  db 0
+allOthersWithNoNitro:
+  db 0
 
 address:
   jmp newmem
@@ -53,6 +69,9 @@ return:
 address:
   db bytes
   // movss xmm0,[edx+ecx+0003C6F4]
+
+unregistersymbol(allowPlayerFullNitro)
+unregistersymbol(allOthersWithNoNitro)
 
 dealloc(newmem)
 
@@ -84,6 +103,22 @@ NFS11.exe+1D8DC8: 8B CA                       - mov ecx,edx
 NFS11.exe+1D8DCA: 69 C9 B8 00 00 00           - imul ecx,ecx,000000B8
 }
 </AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"allowPlayerFullNitro"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>allowPlayerFullNitro</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"allOthersWithNoNitro"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>allOthersWithNoNitro</Address>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
     <CheatEntry>
       <ID>6</ID>
@@ -193,25 +228,39 @@ define(bytes,0F 28 80 B0 1A 00 00)
 assert(address,bytes)
 alloc(newmem,$1000)
 
-label(code)
+label(hpEnd)
 label(return)
 label(playercode)
 label(botcode) // +30 = 0
+
+label(playerFullHP)
+label(instantTakedown)
+
+registersymbol(playerFullHP)
+registersymbol(instantTakedown)
 
 newmem:
   pushad
   cmp [eax+00001AB0+30],0
   je botcode
 playercode:
+  cmp byte ptr [playerFullHP],1
+  jne hpEnd
   mov [eax+00001AB0],(float)0
-  jmp code
+  jmp hpEnd
 botcode:
+  cmp byte ptr [instantTakedown],1
+  jne hpEnd
   mov [eax+00001AB0],(float)1
 
-code:
+hpEnd:
   popad
   movaps xmm0,[eax+00001AB0]
   jmp return
+playerFullHP:
+  db 0
+instantTakedown:
+  db 0
 
 address:
   jmp newmem
@@ -223,6 +272,9 @@ return:
 address:
   db bytes
   // movaps xmm0,[eax+00001AB0]
+
+unregistersymbol(playerFullHP)
+unregistersymbol(instantTakedown)
 
 dealloc(newmem)
 
@@ -254,6 +306,22 @@ NFS11.exe+56842: 05 C0 1A 00 00        - add eax,00001AC0
 NFS11.exe+56847: 0F 28 C2              - movaps xmm0,xmm2
 }
 </AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"playerFullHP"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>playerFullHP</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"InstantTD"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>instantTakedown</Address>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
   </CheatEntries>
   <CheatCodes>
