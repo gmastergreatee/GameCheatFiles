@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Unlimited Nitro"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : FlatOut 2
+  Version: 
+  Date   : 2025-07-19
+  Author : gmastergreatee
+
+  This script does blah blah blah
+}
+
+define(address,"FlatOut2.exe"+6DCA0)
+define(bytes,8B 93 CC 05 00 00)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [ebx+000005CC],(float)5
+  mov edx,[ebx+000005CC]
+  jmp return
+
+address:
+  jmp newmem
+  nop
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // mov edx,[ebx+000005CC]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FlatOut2.exe+6DCA0
+
+FlatOut2.exe+6DC6D: 8B 8F E0 03 00 00     - mov ecx,[edi+000003E0]
+FlatOut2.exe+6DC73: 8B 87 B8 03 00 00     - mov eax,[edi+000003B8]
+FlatOut2.exe+6DC79: 03 C8                 - add ecx,eax
+FlatOut2.exe+6DC7B: 89 8F E0 03 00 00     - mov [edi+000003E0],ecx
+FlatOut2.exe+6DC81: E8 3A B7 FB FF        - call FlatOut2.exe+293C0
+FlatOut2.exe+6DC86: 8B 0D 10 84 8E 00     - mov ecx,[FlatOut2.exe+4E8410]
+FlatOut2.exe+6DC8C: 8B 81 38 09 00 00     - mov eax,[ecx+00000938]
+FlatOut2.exe+6DC92: 85 C0                 - test eax,eax
+FlatOut2.exe+6DC94: 0F 85 8E 00 00 00     - jne FlatOut2.exe+6DD28
+FlatOut2.exe+6DC9A: 8B 87 B8 03 00 00     - mov eax,[edi+000003B8]
+// ---------- INJECTING HERE ----------
+FlatOut2.exe+6DCA0: 8B 93 CC 05 00 00     - mov edx,[ebx+000005CC]
+// ---------- DONE INJECTING  ----------
+FlatOut2.exe+6DCA6: 50                    - push eax
+FlatOut2.exe+6DCA7: 89 54 24 0C           - mov [esp+0C],edx
+FlatOut2.exe+6DCAB: E8 80 00 00 00        - call FlatOut2.exe+6DD30
+FlatOut2.exe+6DCB0: 8B CF                 - mov ecx,edi
+FlatOut2.exe+6DCB2: E8 29 05 00 00        - call FlatOut2.exe+6E1E0
+FlatOut2.exe+6DCB7: 83 BF 6C 03 00 00 01  - cmp dword ptr [edi+0000036C],01
+FlatOut2.exe+6DCBE: 75 68                 - jne FlatOut2.exe+6DD28
+FlatOut2.exe+6DCC0: 8B 0D 10 84 8E 00     - mov ecx,[FlatOut2.exe+4E8410]
+FlatOut2.exe+6DCC6: 83 B9 64 04 00 00 06  - cmp dword ptr [ecx+00000464],06
+FlatOut2.exe+6DCCD: 75 59                 - jne FlatOut2.exe+6DD28
+}
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>49</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">Activated</ActivateSound>
+          <DeactivateSound TTS="EN">Deactivated</DeactivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Player Nitro Accessor :mov edx,[ebx+000005CC]</Description>
+      <AddressString>FlatOut2.exe+6DCA0</AddressString>
+      <Before>
+        <Byte>87</Byte>
+        <Byte>B8</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>CC</Byte>
+        <Byte>93</Byte>
+        <Byte>CC</Byte>
+        <Byte>05</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>50</Byte>
+        <Byte>89</Byte>
+        <Byte>54</Byte>
+        <Byte>24</Byte>
+        <Byte>0C</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>
