@@ -84,6 +84,77 @@ FlatOut2.exe+6DCCD: 75 59                 - jne FlatOut2.exe+6DD28
         </Hotkey>
       </Hotkeys>
     </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Unlimited Cash"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : FlatOut 2
+  Version: 
+  Date   : 2025-09-02
+  Author : gg
+
+  This script does blah blah blah
+}
+
+define(address,"FlatOut2.exe"+7723A)
+define(bytes,89 B0 58 0E 00 00)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov esi, 9999999
+code:
+  mov [eax+00000E58],esi
+  jmp return
+
+address:
+  jmp newmem
+  nop
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // mov [eax+00000E58],esi
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FlatOut2.exe+7723A
+
+FlatOut2.exe+7721D: CC                       - int 3 
+FlatOut2.exe+7721E: CC                       - int 3 
+FlatOut2.exe+7721F: CC                       - int 3 
+FlatOut2.exe+77220: 83 EC 24                 - sub esp,24
+FlatOut2.exe+77223: 8B 90 FC 0E 00 00        - mov edx,[eax+00000EFC]
+FlatOut2.exe+77229: 56                       - push esi
+FlatOut2.exe+7722A: 8B B0 58 0E 00 00        - mov esi,[eax+00000E58]
+FlatOut2.exe+77230: 03 D1                    - add edx,ecx
+FlatOut2.exe+77232: 2B F1                    - sub esi,ecx
+FlatOut2.exe+77234: 89 90 FC 0E 00 00        - mov [eax+00000EFC],edx
+// ---------- INJECTING HERE ----------
+FlatOut2.exe+7723A: 89 B0 58 0E 00 00        - mov [eax+00000E58],esi
+// ---------- DONE INJECTING  ----------
+FlatOut2.exe+77240: 33 C0                    - xor eax,eax
+FlatOut2.exe+77242: 89 44 24 0C              - mov [esp+0C],eax
+FlatOut2.exe+77246: 89 44 24 08              - mov [esp+08],eax
+FlatOut2.exe+7724A: 89 44 24 14              - mov [esp+14],eax
+FlatOut2.exe+7724E: 50                       - push eax
+FlatOut2.exe+7724F: A1 14 84 8E 00           - mov eax,[FlatOut2.exe+4E8414]
+FlatOut2.exe+77254: 8D 54 24 08              - lea edx,[esp+08]
+FlatOut2.exe+77258: C7 44 24 08 DF 0B 00 00  - mov [esp+08],00000BDF
+FlatOut2.exe+77260: C7 44 24 14 FF FF 00 00  - mov [esp+14],0000FFFF
+FlatOut2.exe+77268: E8 93 0C FE FF           - call FlatOut2.exe+57F00
+}
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <CheatCodes>
     <CodeEntry>
@@ -110,6 +181,32 @@ FlatOut2.exe+6DCCD: 75 59                 - jne FlatOut2.exe+6DD28
         <Byte>54</Byte>
         <Byte>24</Byte>
         <Byte>0C</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Cash Decreaser :mov [eax+00000E58],esi</Description>
+      <AddressString>FlatOut2.exe+7723A</AddressString>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>FC</Byte>
+        <Byte>0E</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>CC</Byte>
+        <Byte>B0</Byte>
+        <Byte>58</Byte>
+        <Byte>0E</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>33</Byte>
+        <Byte>C0</Byte>
+        <Byte>89</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
       </After>
     </CodeEntry>
   </CheatCodes>
