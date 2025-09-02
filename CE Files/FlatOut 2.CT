@@ -154,6 +154,17 @@ FlatOut2.exe+77260: C7 44 24 14 FF FF 00 00  - mov [esp+14],0000FFFF
 FlatOut2.exe+77268: E8 93 0C FE FF           - call FlatOut2.exe+57F00
 }
 </AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>50</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">Activated</ActivateSound>
+          <DeactivateSound TTS="EN">Deactivated</DeactivateSound>
+        </Hotkey>
+      </Hotkeys>
     </CheatEntry>
   </CheatEntries>
   <CheatCodes>
