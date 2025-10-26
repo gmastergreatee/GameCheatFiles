@@ -14,7 +14,7 @@
   This script does blah blah blah
 }
 
-define(address,"GameAssembly.dll"+490F53)
+define(address,"GameAssembly.dll"+4A3843)
 define(bytes,01 BB 84 00 00 00)
 define(xpm,01 00 00 00)
 
@@ -23,7 +23,7 @@ define(xpm,01 00 00 00)
 assert(address,bytes)
 assert(address,bytes)
 
-alloc(newmem,$1000,"GameAssembly.dll"+490F53)
+alloc(newmem,$1000,"GameAssembly.dll"+4A3843)
 
 label(code)
 label(return)
@@ -95,7 +95,7 @@ GameAssembly.dll+490F6D: CC                 - int 3
   <CheatCodes>
     <CodeEntry>
       <Description>XP Adder :add [rbx+00000084],edi</Description>
-      <AddressString>GameAssembly.dll+490F53</AddressString>
+      <AddressString>GameAssembly.dll+4A3843</AddressString>
       <Before>
         <Byte>FF</Byte>
         <Byte>84</Byte>
