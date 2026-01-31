@@ -10,20 +10,18 @@
   Version: 
   Date   : 2025-10-12
   Author : gg
-
+  PlayerInventory.AddXP
   This script does blah blah blah
 }
 
-define(address,"GameAssembly.dll"+4A3843)
+define(address,"GameAssembly.dll"+4DFD52)
 define(bytes,01 BB 84 00 00 00)
 define(xpm,01 00 00 00)
 
 [ENABLE]
 
 assert(address,bytes)
-assert(address,bytes)
-
-alloc(newmem,$1000,"GameAssembly.dll"+4A3843)
+alloc(newmem,$1000,"GameAssembly.dll"+4DFD52)
 
 label(code)
 label(return)
@@ -54,31 +52,31 @@ dealloc(newmem)
 unregistersymbol(xpMultiplier)
 
 {
-// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+490F53
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+4DFD52
 
-GameAssembly.dll+490F36: 48 83 EC 20        - sub rsp,20
-GameAssembly.dll+490F3A: 48 8B D9           - mov rbx,rcx
-GameAssembly.dll+490F3D: 8B FA              - mov edi,edx
-GameAssembly.dll+490F3F: 48 8B 49 40        - mov rcx,[rcx+40]
-GameAssembly.dll+490F43: 48 85 C9           - test rcx,rcx
-GameAssembly.dll+490F46: 74 1C              - je GameAssembly.dll+490F64
-GameAssembly.dll+490F48: 33 D2              - xor edx,edx
-GameAssembly.dll+490F4A: E8 F1 5F F6 FF     - call Assets.Scripts.Inventory__Items__Pickups.PlayerHealth.IsDead
-GameAssembly.dll+490F4F: 84 C0              - test al,al
-GameAssembly.dll+490F51: 75 06              - jne GameAssembly.dll+490F59
+GameAssembly.dll+4DFD35: E8 66 ED F1 FF     - call Assets.Scripts.Saves___Serialization.Progression.Challenges.ChallengesTracker.HasChallengeModifier
+GameAssembly.dll+4DFD3A: 84 C0              - test al,al
+GameAssembly.dll+4DFD3C: 75 1A              - jne GameAssembly.dll+4DFD58
+GameAssembly.dll+4DFD3E: 48 8B 4B 40        - mov rcx,[rbx+40]
+GameAssembly.dll+4DFD42: 48 85 C9           - test rcx,rcx
+GameAssembly.dll+4DFD45: 74 1C              - je GameAssembly.dll+4DFD63
+GameAssembly.dll+4DFD47: 33 D2              - xor edx,edx
+GameAssembly.dll+4DFD49: E8 A2 8E F4 FF     - call Assets.Scripts.Inventory__Items__Pickups.PlayerHealth.IsDead
+GameAssembly.dll+4DFD4E: 84 C0              - test al,al
+GameAssembly.dll+4DFD50: 75 06              - jne GameAssembly.dll+4DFD58
 // ---------- INJECTING HERE ----------
-GameAssembly.dll+490F53: 01 BB 84 00 00 00  - add [rbx+00000084],edi
+GameAssembly.dll+4DFD52: 01 BB 84 00 00 00  - add [rbx+00000084],edi
 // ---------- DONE INJECTING  ----------
-GameAssembly.dll+490F59: 48 8B 5C 24 30     - mov rbx,[rsp+30]
-GameAssembly.dll+490F5E: 48 83 C4 20        - add rsp,20
-GameAssembly.dll+490F62: 5F                 - pop rdi
-GameAssembly.dll+490F63: C3                 - ret 
-GameAssembly.dll+490F64: E8 C7 F8 DE FF     - call GameAssembly.mono_method_get_class+B0
-GameAssembly.dll+490F69: CC                 - int 3 
-GameAssembly.dll+490F6A: CC                 - int 3 
-GameAssembly.dll+490F6B: CC                 - int 3 
-GameAssembly.dll+490F6C: CC                 - int 3 
-GameAssembly.dll+490F6D: CC                 - int 3 
+GameAssembly.dll+4DFD58: 48 8B 5C 24 30     - mov rbx,[rsp+30]
+GameAssembly.dll+4DFD5D: 48 83 C4 20        - add rsp,20
+GameAssembly.dll+4DFD61: 5F                 - pop rdi
+GameAssembly.dll+4DFD62: C3                 - ret
+GameAssembly.dll+4DFD63: E8 A8 9B D8 FF     - call GameAssembly.mono_method_get_class+B0
+GameAssembly.dll+4DFD68: CC                 - int 3
+GameAssembly.dll+4DFD69: CC                 - int 3
+GameAssembly.dll+4DFD6A: CC                 - int 3
+GameAssembly.dll+4DFD6B: CC                 - int 3
+GameAssembly.dll+4DFD6C: CC                 - int 3
 }
 </AssemblerScript>
       <CheatEntries>
